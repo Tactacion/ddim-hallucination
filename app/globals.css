@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --bg-page:       #f8f7f4;   /* warm off-white */
+  --bg-card:       #ffffff;
+  --bg-muted:      #f1f0ed;
+  --bg-dark:       #1e293b;   /* slate-800 */
+  --bg-code:       #0f172a;   /* slate-900 */
+
+  --text-primary:  #1e293b;   /* slate-800 */
+  --text-secondary:#475569;   /* slate-600 */
+  --text-muted:    #94a3b8;   /* slate-400 */
+
+  --accent:        #4f46e5;   /* indigo-600 */
+  --accent-light:  #eef2ff;   /* indigo-50 */
+  --accent-border: #c7d2fe;   /* indigo-200 */
+
+  --border:        #e2e8f0;   /* slate-200 */
+  --shadow-sm:     0 1px 3px  0 rgb(0 0 0 / .06), 0 1px 2px -1px rgb(0 0 0 / .04);
+  --shadow-md:     0 4px 12px 0 rgb(0 0 0 / .07), 0 2px  6px -2px rgb(0 0 0 / .05);
+  --shadow-xl:     0 20px 40px -8px rgb(0 0 0 / .10), 0 8px 16px -4px rgb(0 0 0 / .06);
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+html { font-size: 16px; }
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* ─── Typography utilities ───────────────────────────────────────────────── */
+.font-serif {
+  font-family: var(--font-lora), Georgia, 'Times New Roman', serif;
+}
+
+/* Smooth focus rings */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Scrollbar (subtle) ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ─── Section divider ────────────────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 0;
+}
+
+/* ─── Code block ─────────────────────────────────────────────────────────── */
+.bibtex-block {
+  font-family: 'SFMono-Regular', 'Fira Code', 'Fira Mono', Consolas, monospace;
+  font-size: 0.825rem;
+  line-height: 1.75;
+  white-space: pre;
+  overflow-x: auto;
+}
