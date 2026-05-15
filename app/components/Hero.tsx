@@ -112,7 +112,6 @@ export default function Hero() {
                 {author.equal && (
                   <sup className="text-rose-500 font-semibold ml-px text-[10px]">†</sup>
                 )}
-                <sup className="text-indigo-500 font-medium ml-0.5 text-[10px]">1</sup>
                 {i < AUTHORS.length - 1 && (
                   <span className="text-slate-400 mx-1.5">·</span>
                 )}
@@ -120,20 +119,17 @@ export default function Hero() {
             ))}
           </p>
           <div className="text-[13px] text-slate-500 flex flex-col items-center gap-1.5">
-            <div className="flex items-center gap-1.5">
-              <span className="text-indigo-500 font-medium text-[10px] align-super">1</span>
-              <a
-                href="https://www.wisc.edu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-indigo-600 transition-colors duration-200 inline-flex items-center gap-1"
-              >
-                <div className="relative w-4 h-4 rounded overflow-hidden inline-block">
-                  <Image src="/uw-logo.png" alt="UW" fill sizes="16px" className="object-contain" />
-                </div>
-                University of Wisconsin–Madison
-              </a>
-            </div>
+            <a
+              href="https://www.wisc.edu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-600 transition-colors duration-200 inline-flex items-center gap-1.5"
+            >
+              <div className="relative w-5 h-5 rounded overflow-hidden inline-block">
+                <Image src="/uw-logo.png" alt="UW–Madison" fill sizes="20px" className="object-contain" />
+              </div>
+              University of Wisconsin–Madison
+            </a>
             <p className="text-[12px] text-slate-400">
               <sup className="text-rose-400 font-semibold">†</sup> Equal contribution
             </p>

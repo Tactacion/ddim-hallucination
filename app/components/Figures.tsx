@@ -29,17 +29,6 @@ const FIGURES = [
     badgeColor: "rose",
   },
   {
-    id: "fig2",
-    src: "/assets/paper_fig2_geometry.png",
-    title: "Figure 2 — Mode Geometry & Trapping",
-    caption:
-      "The geometric structure that causes DDIM hallucination: the bisector H(i,j) separates modes μ(i) and μ(j). DDIM trajectories entering the ε-ball around the midpoint y₀ converge deterministically to y₀ (Trapped). DDPM's added noise provides a positive probability of escaping to the nearest true mode (Escapes).",
-    width: 1254,
-    height: 912,
-    badge: "Theory",
-    badgeColor: "indigo",
-  },
-  {
     id: "fig3",
     src: "/assets/paper_fig3_halluc.png",
     title: "Figure 3 — Hallucination Rate vs. Timesteps",
@@ -202,36 +191,6 @@ export default function Figures() {
             Click any figure to enlarge. Figures 1–5 are reproduced directly from the paper.
             3D visualisations and the score-field plot are companion renderings.
           </p>
-        </motion.div>
-
-        {/* Score-field video (full-width) */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] as const, delay: 0.05 }}
-          className="mb-10"
-        >
-          <div className="rounded-xl overflow-hidden border border-slate-200 shadow-[0_2px_12px_0_rgb(0,0,0,0.06)]">
-            <video
-              className="w-full block bg-[#F8F7F4]"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/assets/DDPMvsDDIMFinal.mp4" type="video/mp4" />
-            </video>
-            <div className="bg-white border-t border-slate-100 px-5 py-3 flex items-center justify-between">
-              <span className="text-[12px] text-slate-500">
-                <strong className="text-slate-700">Animation.</strong>{" "}
-                Score field ∇ log p(x) of a two-mode GMM — at y₀ the score is exactly zero, so DDIM (rose) stalls there while DDPM (teal) uses Brownian noise to escape to a true mode
-              </span>
-              <span className="inline-flex items-center gap-1 text-[11px] text-indigo-500 font-medium">
-                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-                Manim
-              </span>
-            </div>
-          </div>
         </motion.div>
 
         {/* 2-column figure grid */}

@@ -16,43 +16,39 @@ const EXPERIMENTS = [
     height: 660,
     tag: "Hallucination Demo",
     tagColor: "rose",
-    theorem: "Fig. 1 · Theorem 4.2",
   },
   {
     id: "midpoint",
     src: "/assets/midpoint_neighborhood.gif",
     title: "Midpoint Neighbourhood — Binary Outcomes",
     caption:
-      "Two trajectories initialised near the midpoint y₀ exhibit a sharp bifurcation: the blue trajectory escapes toward a true mode (τ_exp ≈ 35), while the red trajectory is trapped and converges to y₀. The right panel plots the distance to the mode segment, confirming Theorem 4.2's critical threshold.",
+      "Two trajectories initialised near the midpoint y₀ exhibit a sharp bifurcation: the blue trajectory escapes toward a true mode, while the red trajectory is trapped and converges to y₀. The right panel plots the distance to the mode segment, confirming the critical threshold for escape probability.",
     width: 1468,
     height: 677,
-    tag: "Theorem 4.2",
+    tag: "Trapping vs. Escape",
     tagColor: "indigo",
-    theorem: "Theorem 4.2",
   },
   {
     id: "convergence",
     src: "/assets/exp_convergence.gif",
     title: "Trajectory Convergence to Mode Segment",
     caption:
-      "A single DDIM trajectory colored by reverse step (purple→yellow = noisy→clean) converging toward the line segment L(i,j) between two modes. The log-scale curve on the right quantifies the exponential decrease in distance d(xₜ, L(i,j)), validating the convergence bound in Theorem 4.2.",
+      "A single DDIM trajectory colored by reverse step (purple→yellow = noisy→clean) converging toward the line segment L(i,j) between two modes. The log-scale curve on the right quantifies the exponential decrease in distance d(xₜ, L(i,j)), consistent with the paper's convergence bounds.",
     width: 1580,
     height: 684,
     tag: "Fig. 4 · Convergence",
     tagColor: "teal",
-    theorem: "Proposition 5.1",
   },
   {
     id: "tracking",
     src: "/assets/tracking_stability.gif",
     title: "Tracking Stability Along the Nearby Line",
     caption:
-      "Three-panel view: the full 25-mode geometry (left), the ξₜ coordinate band showing both trajectories staying within the x-band (center), and the pairwise xi-gap |ξₜ⁽¹⁾ − ξₜ⁽²⁾| decaying at rate λ ≈ 0.19 (right). This validates the tracking stability lemma: trajectories that enter a common line segment stay together.",
+      "Three-panel view: the full 25-mode geometry (left), the ξₜ coordinate band showing both trajectories staying within the x-band (center), and the pairwise xi-gap |ξₜ⁽¹⁾ − ξₜ⁽²⁾| decaying over time (right). Trajectories that enter a common line segment stay together throughout the reverse process.",
     width: 1940,
     height: 602,
     tag: "Tracking Stability",
     tagColor: "indigo",
-    theorem: "Lemma 3.1",
   },
   {
     id: "modes-far",
@@ -64,19 +60,17 @@ const EXPERIMENTS = [
     height: 648,
     tag: "Mode Separation",
     tagColor: "amber",
-    theorem: "Corollary 4.3",
   },
   {
     id: "dominance",
     src: "/assets/two_mode_dominance.gif",
     title: "Two-Mode Dominance Dynamics",
     caption:
-      "The D_dom metric (minimum distance gap between near modes and far modes) evolves over 50 reverse steps for four labeled modes. The dotted envelope tracks the minimum-gap lower bound; the red dashed line marks the 2σₜ²κ threshold. Once D_dom rises above this threshold the trajectory is committed to its dominant mode pair.",
+      "The D_dom metric (minimum distance gap between near modes and far modes) evolves over 50 reverse steps for four labeled modes. The dotted envelope tracks the minimum-gap lower bound; once D_dom rises above the threshold the trajectory is committed to its dominant mode pair.",
     width: 1581,
     height: 686,
     tag: "Mode Dominance",
     tagColor: "violet",
-    theorem: "Proposition 4.4",
   },
 ];
 
@@ -119,7 +113,6 @@ function ExperimentCard({ exp, index, inView }: {
           <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${tc.bg} ${tc.border} ${tc.text}`}>
             {exp.tag}
           </span>
-          <span className="text-[11px] text-slate-400 font-mono">{exp.theorem}</span>
         </div>
         <span className="text-[13px] font-semibold text-slate-800">{exp.title}</span>
         <p className="font-serif text-[13.5px] leading-relaxed text-slate-600 italic">

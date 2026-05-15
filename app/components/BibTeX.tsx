@@ -16,7 +16,6 @@ const BIBTEX = `@inproceedings{ashiq2026ddim,
   year      = {2026},
   address   = {Seoul, South Korea},
   publisher = {PMLR},
-  note      = {ICML 2026}
 }`;
 
 export default function BibTeX() {
