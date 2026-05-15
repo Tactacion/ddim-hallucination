@@ -2,7 +2,6 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Abstract from "./components/Abstract";
 import Contributions from "./components/Contributions";
-// import Theory from "./components/Theory";
 import Experiments from "./components/Experiments";
 import Figures from "./components/Figures";
 import BibTeX from "./components/BibTeX";
@@ -15,7 +14,6 @@ export default function Home() {
       <Hero />
       <Abstract />
       <Contributions />
-      {/* <Theory /> */}
       <Experiments />
       <Figures />
       <BibTeX />
