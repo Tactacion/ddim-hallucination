@@ -9,7 +9,13 @@ export default function Footer() {
         {/* Left: institution */}
         <div className="flex items-center gap-3">
           <div className="relative w-8 h-8 rounded overflow-hidden">
-            <Image src="/uw-logo.png" alt="University of Wisconsin–Madison" fill className="object-contain" />
+            <Image
+              src="/uw-logo.png"
+              alt="University of Wisconsin–Madison"
+              fill
+              sizes="32px"
+              className="object-contain"
+            />
           </div>
           <div className="flex flex-col">
             <span className="text-[13px] font-semibold text-slate-700">University of Wisconsin–Madison</span>

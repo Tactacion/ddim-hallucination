@@ -7,10 +7,10 @@ import { useRef } from "react";
 const CONTRIBUTIONS = [
   {
     number: "01",
-    title: "Mode Interpolation & Hallucination",
-    tag: "Theoretical Result",
+    title: "How DDIM Hallucinates",
+    tag: "Theoretical Result #1",
     tagColor: "rose",
-    body: "We prove that DDIM's deterministic reverse ODE can get permanently stuck on the line segment connecting the two nearest mixture modes — a region that carries no probability mass under the true data distribution. We call this behavior mode interpolation, and show it is the fundamental mechanism behind DDIM hallucinations.",
+    body: `We rigorously study the source of DDIM hallucinations as observed in an N-mode Gaussian mixture, demonstrating that after a critical time, DDIM trajectories converge to the nearest line segment joining two modes and then can become stuck near the midpoint, thus ending up in regions of low probability mass. These are "mode interpolation hallucinations" (Aithal et al., 2024).`,
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -21,9 +21,9 @@ const CONTRIBUTIONS = [
   {
     number: "02",
     title: "The DDPM Escape Mechanism",
-    tag: "Key Insight",
+    tag: "Theoretical Result #2",
     tagColor: "teal",
-    body: "The stochastic noise injected at each step of DDPM's reverse SDE acts as a perturbation that can push trajectories away from these unstable equilibria. We quantify the probability of escape and show it is strictly positive, explaining empirically why DDPM has a dramatically lower hallucination rate than DDIM.",
+    body: "We leverage this to provide a theoretical justification for why DDIM hallucinates more than DDPM: the noise of DDPM can help it become unstuck from this hallucination region around the midpoint.",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -33,10 +33,10 @@ const CONTRIBUTIONS = [
   },
   {
     number: "03",
-    title: "Hybrid Sampling Strategy",
-    tag: "Practical Method",
+    title: "Experiments",
+    tag: "Empirical Validation",
     tagColor: "indigo",
-    body: "Building on our theory, we show that selectively inserting a small number of DDPM-style stochastic steps into an otherwise deterministic DDIM chain is sufficient to dramatically reduce hallucinations — without sacrificing DDIM's speed advantage. This yields concrete guidance for designing improved, robust samplers.",
+    body: "Empirically, we invalidate that the DDIM hallucination rate gap can be explained by step skipping and demonstrate that adding a few DDPM steps after DDIM converges near the midpoint neighborhood can help the trajectory escape, lowering hallucination rate.",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}>
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -89,10 +89,10 @@ export default function Contributions() {
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            What we prove and build
+            What We Demonstrate
           </h2>
           <p className="text-slate-500 text-[15px] leading-relaxed max-w-2xl">
-            Three interlocking results — one theoretical, one mechanistic, one practical — that together explain and mitigate diffusion hallucination.
+            We characterize where and when mode interpolation hallucinations arise in DDIM, describe why DDPM hallucinates less than DDIM, and validate our results empirically.
           </p>
         </motion.div>
 

@@ -7,7 +7,6 @@ import Image from "next/image";
 const NAV_LINKS = [
   { label: "Abstract",      href: "#abstract"       },
   { label: "Theory",        href: "#theory"         },
-  { label: "Experiments",   href: "#experiments"    },
   { label: "Figures",       href: "#figures"        },
   { label: "BibTeX",        href: "#bibtex"         },
 ];

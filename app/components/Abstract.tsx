@@ -45,7 +45,7 @@ export default function Abstract() {
               className="absolute -top-4 -left-3 text-8xl text-indigo-100 font-serif leading-none select-none pointer-events-none"
               aria-hidden
             >
-              "
+              &quot;
             </div>
             <p className="font-serif text-[1.0625rem] leading-[1.85] text-slate-700 relative z-10 pl-1">
               {ABSTRACT}

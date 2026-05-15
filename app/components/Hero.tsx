@@ -18,6 +18,14 @@ const AUTHORS: { name: string; equal?: boolean }[] = [
   { name: "Grigorios G. Chrysos" },
 ];
 
+const HERO_ANIMATIONS = [
+  { src: "/assets/GMMLandscape3D.mp4" },
+  { src: "/assets/DDPMvsDDIMFinal.mp4" },
+];
+
+const HERO_ANIMATION_CAPTION =
+  "Reverse dynamics: deterministic DDIM gets stuck in the midpoint neighborhood, while stochastic DDPM escapes.";
+
 type ButtonProps = {
   href: string;
   icon: React.ReactNode;
@@ -40,6 +48,26 @@ function ActionButton({ href, icon, label, primary }: ButtonProps) {
       {icon}
       {label}
     </a>
+  );
+}
+
+function HeroAnimationCard({ animation }: { animation: typeof HERO_ANIMATIONS[number] }) {
+  return (
+    <div
+      className="relative rounded-2xl overflow-hidden bg-[#F8F7F4] border border-slate-200 h-full flex flex-col"
+      style={{ boxShadow: "0 20px 60px -12px rgba(0,0,0,0.10), 0 8px 24px -4px rgba(0,0,0,0.06)" }}
+    >
+      <video
+        className="w-full block bg-[#F8F7F4]"
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{ display: "block" }}
+      >
+        <source src={animation.src} type="video/mp4" />
+      </video>
+    </div>
   );
 }
 
@@ -144,37 +172,24 @@ export default function Hero() {
           <ActionButton href="#figures" icon={<VideoIcon />} label="Videos" />
         </motion.div>
 
-        {/* Hero — Manim animation */}
+        {/* Hero — Manim animations */}
         <motion.div
           {...fadeUp(0.3)}
           className="w-full mt-4"
         >
-          <div
-            className="relative rounded-2xl overflow-hidden bg-[#F8F7F4] border border-slate-200"
-            style={{ boxShadow: "0 20px 60px -12px rgba(0,0,0,0.10), 0 8px 24px -4px rgba(0,0,0,0.06)" }}
-          >
-            <video
-              className="w-full block"
-              autoPlay
-              loop
-              muted
-              playsInline
-              style={{ display: "block" }}
-            >
-              <source src="/assets/GMMLandscape3D.mp4" type="video/mp4" />
-            </video>
-
-            {/* Caption bar */}
-            <div className="bg-white/80 border-t border-slate-100 px-5 py-3 flex items-center justify-between">
-              <span className="text-[12px] text-slate-500">
-                <strong className="text-slate-700">Animation.</strong>{" "}
-                3D probability landscape — DDIM trajectory trapped at the saddle; DDPM escapes to a true mode
-              </span>
-              <span className="inline-flex items-center gap-1 text-[11px] text-indigo-500 font-medium">
-                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-                Rendered with Manim
-              </span>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+            {HERO_ANIMATIONS.map((animation) => (
+              <HeroAnimationCard key={animation.src} animation={animation} />
+            ))}
+          </div>
+          <div className="mt-3 bg-white/80 border border-slate-100 px-5 py-3 rounded-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <span className="text-[12px] text-slate-500 text-left">
+              {HERO_ANIMATION_CAPTION}
+            </span>
+            <span className="inline-flex items-center gap-1 text-[11px] text-indigo-500 font-medium whitespace-nowrap">
+              <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+              Rendered with Manim
+            </span>
           </div>
         </motion.div>
       </div>

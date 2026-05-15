@@ -10,8 +10,14 @@ const EXPERIMENTS = [
     id: "mode-interp",
     src: "/assets/mode_interpolation.gif",
     title: "Mode Interpolation in Action",
-    caption:
-      "DDIM denoising on a 25-mode Gaussian grid: the left panel traces the live reverse trajectory; the right panel accumulates the final sample distribution. The legend reports ~9.4% of samples landing at mode-interpolated locations — the core hallucination phenomenon.",
+    caption: (
+      <>
+        DDIM on a 25-mode Gaussian grid: the left panel traces the reverse
+        trajectory; the right panel demonstrates the final sample distribution.
+        The legend reports ~9.4% of samples as <em>mode interpolations</em>:
+        regions of low probability mass between the true Gaussian modes.
+      </>
+    ),
     width: 1440,
     height: 660,
     tag: "Hallucination Demo",
@@ -20,57 +26,74 @@ const EXPERIMENTS = [
   {
     id: "midpoint",
     src: "/assets/midpoint_neighborhood.gif",
-    title: "Midpoint Neighbourhood — Binary Outcomes",
+    title: "DDIM Trapping vs. DDPM Escape Near Midpoint",
     caption:
-      "Two trajectories initialised near the midpoint y₀ exhibit a sharp bifurcation: the blue trajectory escapes toward a true mode, while the red trajectory is trapped and converges to y₀. The right panel plots the distance to the mode segment, confirming the critical threshold for escape probability.",
+      "We prove that after Asm. 4.4 holds, in a neighborhood around the midpoint, DDIM trajectories (blue) can get stuck while DDPM trajectories (red) can escape, explaining the hallucination rate gap between the two samplers.",
     width: 1468,
     height: 677,
-    tag: "Trapping vs. Escape",
+    tag: "Props. 4.7, 5.1",
     tagColor: "indigo",
   },
   {
     id: "convergence",
     src: "/assets/exp_convergence.gif",
-    title: "Trajectory Convergence to Mode Segment",
+    title: "Exponential Convergence to Nearby Line",
     caption:
-      "A single DDIM trajectory colored by reverse step (purple→yellow = noisy→clean) converging toward the line segment L(i,j) between two modes. The log-scale curve on the right quantifies the exponential decrease in distance d(xₜ, L(i,j)), consistent with the paper's convergence bounds.",
+      'We demonstrate that after Asm. 4.1 holds in the reverse process, DDIM trajectories converge towards the line segment joining modes "i" and "j" exponentially fast.',
     width: 1580,
     height: 684,
-    tag: "Fig. 4 · Convergence",
+    tag: "Theorem 4.2",
     tagColor: "teal",
   },
   {
     id: "tracking",
     src: "/assets/tracking_stability.gif",
-    title: "Tracking Stability Along the Nearby Line",
+    title: "Tracking Stability Near Modes",
     caption:
-      "Three-panel view: the full 25-mode geometry (left), the ξₜ coordinate band showing both trajectories staying within the x-band (center), and the pairwise xi-gap |ξₜ⁽¹⁾ − ξₜ⁽²⁾| decaying over time (right). Trajectories that enter a common line segment stay together throughout the reverse process.",
+      "We prove that after Asm. 4.4 holds in the reverse process, trajectories that land on the line segment near a mode attract to a stable trajectory near that mode.",
     width: 1940,
     height: 602,
-    tag: "Tracking Stability",
+    tag: "Prop. 4.5, Cor. 4.6",
     tagColor: "indigo",
   },
   {
     id: "modes-far",
     src: "/assets/modes_far_apart.gif",
-    title: "Modes Far Apart — T_far Threshold",
+    title: "Modes Sufficiently Far Apart",
     caption:
-      "When modes are far apart (‖μᵢ − μⱼ‖ large), the inter-mode distance (solid blue) stays below the T_far threshold (dashed) throughout the reverse process. This regime is where mode interpolation becomes most likely: the score field near y₀ is nearly flat and deterministic dynamics have no escape route.",
+      'We assume that there exists a time so that the distance between modes "i" and "j" (solid blue) is sufficiently large (dotted blue). This assumption is natural for an analysis of mode interpolation of hallucinations, since otherwise there are no regions of low probability mass.',
     width: 1500,
     height: 648,
-    tag: "Mode Separation",
+    tag: "Asm. 4.4",
     tagColor: "amber",
   },
   {
     id: "dominance",
     src: "/assets/two_mode_dominance.gif",
-    title: "Two-Mode Dominance Dynamics",
+    title: "Two Mode Dominance",
     caption:
-      "The D_dom metric (minimum distance gap between near modes and far modes) evolves over 50 reverse steps for four labeled modes. The dotted envelope tracks the minimum-gap lower bound; once D_dom rises above the threshold the trajectory is committed to its dominant mode pair.",
+      'We assume that there exists a time, so that the trajectory is sufficiently closer (dotted red line) to a pair of modes "i" and "j" than any other pair. We find that this assumption holds empirically, visualized by the red diamond for a DDIM trajectory with 50 steps.',
     width: 1581,
     height: 686,
-    tag: "Mode Dominance",
+    tag: "Asm. 4.1",
     tagColor: "violet",
+  },
+];
+
+type Experiment = (typeof EXPERIMENTS)[number];
+
+const THEORY_SECTIONS = [
+  {
+    title: "Mode Interpolations",
+    experimentIds: ["mode-interp"],
+  },
+  {
+    title: "Assumptions",
+    experimentIds: ["dominance", "modes-far"],
+  },
+  {
+    title: "Key Results",
+    experimentIds: ["convergence", "tracking", "midpoint"],
   },
 ];
 
@@ -83,7 +106,7 @@ const TAG_COLORS: Record<string, { bg: string; border: string; text: string }> =
 };
 
 function ExperimentCard({ exp, index, inView }: {
-  exp: typeof EXPERIMENTS[number];
+  exp: Experiment;
   index: number;
   inView: boolean;
 }) {
@@ -126,9 +149,10 @@ function ExperimentCard({ exp, index, inView }: {
 export default function Experiments() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const getExperiment = (id: string) => EXPERIMENTS.find((exp) => exp.id === id);
 
   return (
-    <section id="experiments" className="py-24 px-6 bg-slate-50/50" ref={ref}>
+    <section id="theory" className="py-24 px-6 bg-slate-50/50" ref={ref}>
       <hr className="section-divider mb-24" />
       <div className="max-w-4xl mx-auto">
         <motion.div
@@ -140,7 +164,7 @@ export default function Experiments() {
           <div className="flex items-center gap-3">
             <div className="w-6 h-px bg-teal-400" />
             <span className="text-xs font-semibold text-teal-500 uppercase tracking-widest">
-              Supplementary Experiments
+              Theory
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
@@ -148,14 +172,49 @@ export default function Experiments() {
           </h2>
           <p className="text-slate-500 text-[15px] leading-relaxed max-w-2xl">
             Frame-by-frame simulations showing the theoretical phenomena playing out in practice.
-            Each animation directly corresponds to a theorem, proposition, or figure in the paper.
+            Each animation corresponds to a key concept or theorem from the paper.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-          {EXPERIMENTS.map((exp, i) => (
-            <ExperimentCard key={exp.id} exp={exp} index={i} inView={inView} />
-          ))}
+        <div className="flex flex-col gap-16">
+          {THEORY_SECTIONS.map((section, sectionIndex) => {
+            const experiments = section.experimentIds
+              .map(getExperiment)
+              .filter((exp): exp is Experiment => Boolean(exp));
+
+            return (
+              <div key={section.title} className="flex flex-col gap-7">
+                <motion.h3
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.55,
+                    ease: [0.16, 1, 0.3, 1] as const,
+                    delay: 0.08 * sectionIndex,
+                  }}
+                  className="text-lg font-bold text-slate-800 tracking-tight"
+                >
+                  {section.title}
+                </motion.h3>
+                <div
+                  className={
+                    experiments.length === 1
+                      ? "grid grid-cols-1 gap-10"
+                      : "grid grid-cols-1 sm:grid-cols-2 gap-10"
+                  }
+                >
+                  {experiments.map((exp, i) => (
+                    <ExperimentCard
+                      key={exp.id}
+                      exp={exp}
+                      index={sectionIndex + i}
+                      inView={inView}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
